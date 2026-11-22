@@ -1,0 +1,198 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --brand-slate: #2c3e50;
+    --brand-slate-hover: #1e2d3b;
+    --brand-green: #2e8b2e;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: #ffffff;
+    color: #1e293b;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom Leaflet Marker Overrides */
+.kv-bus-marker-icon,
+.kv-stop-marker-icon,
+.kv-pin-marker-icon,
+.kv-dest-marker-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.leaflet-container {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  background-color: #f4f4f5 !important;
+}
+
+/* OpenStreetMap Tile Filters: Soft Apple Maps-like Light Tint & Clean Dark Mode */
+.kv-map-light .leaflet-tile-pane {
+  filter: saturate(35%) contrast(98%) brightness(102%);
+}
+
+.kv-map-dark .leaflet-container {
+  background-color: #18181b !important;
+}
+
+.kv-map-dark .leaflet-tile-pane {
+  filter: invert(100%) hue-rotate(180deg) brightness(92%) contrast(90%);
+}
+
+/* Draggable Origin Pin (Start): Pulsing Blue Location Dot + Hover "Start" Label */
+@keyframes kv-radar-pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.65;
+  }
+  70% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+.kv-you-pin {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+}
+
+.kv-you-pin:active {
+  cursor: grabbing;
+}
+
+.kv-you-pulse {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background-color: rgba(37, 99, 235, 0.45);
+  animation: kv-radar-pulse 2s cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
+  pointer-events: none;
+}
+
+.kv-you-dot {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background-color: #2563eb;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.45), 0 1px 2px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+
+.kv-you-label {
+  position: absolute;
+  bottom: 26px;
+  left: 50%;
+  transform: translate(-50%, 4px);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background-color: #1d4ed8;
+  color: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+  transition: opacity 150ms ease, transform 150ms ease;
+  z-index: 4;
+}
+
+.kv-you-pin:hover .kv-you-label {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Draggable Destination Pin (End): Red Teardrop Pin with White Flag Icon + Hover "Dest" Label */
+.kv-dest-pin {
+  position: relative;
+  width: 34px;
+  height: 42px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  cursor: grab;
+}
+
+.kv-dest-pin:active {
+  cursor: grabbing;
+}
+
+.kv-dest-teardrop {
+  position: relative;
+  width: 32px;
+  height: 40px;
+  filter: drop-shadow(0 3px 5px rgba(225, 29, 72, 0.35)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+  transition: transform 150ms ease;
+}
+
+.kv-dest-pin:hover .kv-dest-teardrop {
+  transform: translateY(-2px) scale(1.04);
+}
+
+.kv-dest-label {
+  position: absolute;
+  bottom: 44px;
+  left: 50%;
+  transform: translate(-50%, 4px);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background-color: #be123c;
+  color: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+  transition: opacity 150ms ease, transform 150ms ease;
+  z-index: 4;
+}
+
+.kv-dest-pin:hover .kv-dest-label {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.leaflet-control-attribution {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 10px !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(4px);
+  border-top: 1px solid #e2e8f0;
+  border-left: 1px solid #e2e8f0;
+  color: #64748b !important;
+  padding: 2px 6px !important;
+}
+
+.leaflet-control-attribution a {
+  color: #334155 !important;
+  text-decoration: none !important;
+}
