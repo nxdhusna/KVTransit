@@ -1,0 +1,6 @@
+{
+  "name": "KV Transit — Open-Data Public Transport & First/Last-Mile Planner",
+  "description": "Swiss-minimalist Klang Valley public transport tracker and first/last-mile walking route planner powered by RapidKL, MRT Feeder, and OSRM.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
